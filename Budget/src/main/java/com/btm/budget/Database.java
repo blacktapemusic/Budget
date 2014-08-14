@@ -68,6 +68,7 @@ public class Database {
         
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS operation (" + 
                 "id INT IDENTITY, " +
+                "name VARCHAR(1024), " +
                 "value DOUBLE NOT NULL, "+
                 "factChecker BOOLEAN NOT NULL, " +
 //                "periodic INT NOT NULL, " +
@@ -82,6 +83,7 @@ public class Database {
         
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS forecastDeal (" + 
                 "id INT IDENTITY, " +
+                "name VARCHAR(1024), " +
                 "value DOUBLE NOT NULL, "+
                 "factChecker BOOLEAN NOT NULL, " +
 //                "periodic INT NOT NULL, " +

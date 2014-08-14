@@ -146,8 +146,8 @@ public class HibernateUtilTest{
         System.out.println("solde2 ID="+solde2.getId());
         
         
-        Deal operation1 = new Deal(value1, true, 0, true, date1, null, category1, null, DBColor.black, account1);
-        Deal operation2 = new Deal(value2, false, 1, false, date1, "Test", category2, subCategory1, DBColor.green, account1);
+        Deal operation1 = new Deal("operation1", value1, true, 0, true, date1, null, category1, null, DBColor.black, account1);
+        Deal operation2 = new Deal("operation2", value2, false, 1, false, date1, "Test", category2, subCategory1, DBColor.green, account1);
         //Save the Model object
         session.save(operation1);
         session.save(operation2);
@@ -155,7 +155,7 @@ public class HibernateUtilTest{
         System.out.println("operation1 ID="+operation1.getId());
         System.out.println("operation2 ID="+operation2.getId());
         
-        ForecastDeal operation3 = new ForecastDeal(value3, true, 0, true, date1, null, category1, null, DBColor.red, account1);
+        ForecastDeal operation3 = new ForecastDeal("ForecastDeal1", value3, true, 0, true, date1, null, category1, null, DBColor.red, account1);
 //        ForecastDeal operation4 = new ForecastDeal(value2, false, 1, false, date1, "Test", category2, subCategory1, DBColor.green, account1);
         //Save the Model object
         session.save(operation3);

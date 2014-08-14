@@ -45,6 +45,9 @@ public class Operation {
     @Column(name = "id", nullable = false, unique = true)
     private int id;
     
+    @Column(name = "name", length = 20)
+    private String name; 
+    
     @Column(name = "value", nullable = false)
     private double value;
     
@@ -84,7 +87,8 @@ public class Operation {
     public Operation() {
     }
 
-    public Operation(double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, int id, Account account) {
+    public Operation(String name, double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, int id, Account account) {
+        this.name = name;
         this.value = value;
         this.factChecker = factChecker;
 //        this.periodic = periodic;
@@ -98,7 +102,8 @@ public class Operation {
         this.account = account;
     }
     
-    public Operation(double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, Account account) {
+    public Operation(String name, double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, Account account) {
+        this.name = name;
         this.value = value;
         this.factChecker = factChecker;
 //        this.periodic = periodic;
@@ -255,6 +260,14 @@ public class Operation {
 
     public void setFactChecker(boolean factChecker) {
         this.factChecker = factChecker;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
     @Override

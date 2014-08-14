@@ -19,15 +19,16 @@ import javax.swing.table.AbstractTableModel;
 public class OperationTableModel extends AbstractTableModel {
     public final List<Operation> operationList = new ArrayList<Operation>();
     
-    public final String[] header = {"value", 
-                                    "factChecker", 
-                                    "periodic", 
+    public final String[] header = {"name",
+                                    "value", 
+                                    "factChecker",
                                     "inOrOut",
                                     "date",
                                     "memo", 
                                     "category",
                                     "subCategory",
-                                    "color"}; 
+                                    "color",
+                                    "periodic"}; 
 
     public OperationTableModel() {
         super();
@@ -52,12 +53,11 @@ public class OperationTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0:
-                return operationList.get(rowIndex).getValue();
+                return operationList.get(rowIndex).getName();
             case 1:
-                return operationList.get(rowIndex).isFactChecker();
+                return operationList.get(rowIndex).getValue();
             case 2:
-                return null; 
-//                return operationList.get(rowIndex).getPeriodic();
+                return operationList.get(rowIndex).isFactChecker();
             case 3:
                 return operationList.get(rowIndex).isInOrOut();
             case 4:
@@ -76,6 +76,9 @@ public class OperationTableModel extends AbstractTableModel {
                     return null; 
             case 8:
                 return operationList.get(rowIndex).getColor().name();
+            case 9:
+                return false; 
+//                return operationList.get(rowIndex).getPeriodic();
             default:
                 return null; 
         }

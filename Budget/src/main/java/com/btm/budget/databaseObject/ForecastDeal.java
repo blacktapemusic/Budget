@@ -37,11 +37,11 @@ public class ForecastDeal extends Operation{
         super();
     }  
     
-    public ForecastDeal(double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, int id, Account account) {
-        super(value, factChecker, periodic, inOrOut, date, memo, category, subCategory, color, id, account);
+    public ForecastDeal(String name, double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, int id, Account account) {
+        super(name, value, factChecker, periodic, inOrOut, date, memo, category, subCategory, color, id, account);
     }
     
-    public ForecastDeal(double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, Account account) {
-        super(value, factChecker, periodic, inOrOut, date, memo, category, subCategory, color, account);
+    public ForecastDeal(String name, double value, boolean factChecker, int periodic, boolean inOrOut, Calendar date, String memo, Category category, SubCategory subCategory, DBColor color, Account account) {
+        super(name, value, factChecker, periodic, inOrOut, date, memo, category, subCategory, color, account);
     }
 }

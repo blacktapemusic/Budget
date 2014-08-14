@@ -101,14 +101,6 @@ public class Account {
             soldeList.add(thisMonthSolde);
         }
     }
-
-//    public List<Operation> getOperationList() {
-//        return operationList;
-//    }
-//
-//    public void setOperationList(List<Operation> operationList) {
-//        this.operationList = operationList;
-//    }
     
 //    public void addOperation(Operation operation)
 //    {
@@ -135,24 +127,7 @@ public class Account {
 //        
 //        return false; 
 //    }
-//    
-//    public boolean containOperation(int id)
-//    {
-//        Iterator it = operationList.iterator();
-//        Operation operation; 
-//        
-//        while(it.hasNext())
-//        {
-//            operation = (Operation) it.next();
-//            
-//            if(operation.getId() != id) 
-//            {
-//                return true;
-//            }
-//        }
-//        return false; 
-//    }
-//    
+    
 //    public void deleteAllOperations()
 //    {
 //        operationList.clear();
@@ -173,35 +148,6 @@ public class Account {
 //        }
 //        
 //        return solde; 
-//    }
-    
-//    public double getSoldePeriod(SmallDate date)
-//    {
-//        double solde = lastMonthSolde;
-//        Iterator it = operationList.iterator();
-//        Operation operation; 
-//        
-//        
-//        
-//        
-//        if(date.after(new Date()))
-//        {
-//            while(it.hasNext())
-//            {
-//                operation = (Operation) it.next();
-//
-//                solde += operation.getValue()*(operation.isInOrOut() == true ? 1 : -1);
-//            }
-//
-//            return solde; 
-//        }
-//        return 0; 
-//    }
-//    
-//        
-//    public void update(SmallDate date)
-//    {
-//        
 //    }
 
     public int getId() {
@@ -281,51 +227,69 @@ public class Account {
     {
         Iterator it = soldeList.iterator();
         Solde solde;
-        Calendar firstOfTheMonthDate = date; 
-        firstOfTheMonthDate.set(Calendar.DAY_OF_MONTH, 1);
         
-        System.out.println("firstOfTheMonthDate"+Constants.date_format.format(firstOfTheMonthDate.getTime()));
+        Calendar firstDayOfTheMonthDate = (Calendar) date.clone(); 
+        firstDayOfTheMonthDate.set(Calendar.DAY_OF_MONTH, date.getActualMinimum(Calendar.DAY_OF_MONTH));
+        firstDayOfTheMonthDate.set(Calendar.HOUR_OF_DAY, 0);
+        firstDayOfTheMonthDate.set(Calendar.MINUTE, 0);
+        firstDayOfTheMonthDate.set(Calendar.SECOND, 0);
+        firstDayOfTheMonthDate.set(Calendar.MILLISECOND, 0);
         
         while(it.hasNext())
         {
             solde = (Solde) it.next();
             
-            System.out.println("getSoldeAtFirstOfMonth" + solde);
-            if(solde.getDate().equals(firstOfTheMonthDate))
+            if(solde.getDate().compareTo(firstDayOfTheMonthDate) == 0)
                 return solde.getValue();
         }
-        
-        System.out.println("getSoldeAtFirstOfMonth no value found");
         
         // TODO Gerer erreur de non presence du solde
         return 0;
     }
     
     public double getSolde() {
-        // TODO gerer l'erreur = 0
-        Calendar firstOfTheMonthDate = Calendar.getInstance(); 
-        firstOfTheMonthDate.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar firstDayOfTheMonthDate = Calendar.getInstance(); 
+        firstDayOfTheMonthDate.set(Calendar.DAY_OF_MONTH, firstDayOfTheMonthDate.getActualMinimum(Calendar.DAY_OF_MONTH));
         
-        return getSoldePeriod(firstOfTheMonthDate); 
+        return getSoldePeriod(firstDayOfTheMonthDate); 
     }
     
     public double getSoldePeriod(Calendar date)
     {
         double solde = getSoldeAtFirstOfMonth(date);
-//        Iterator it = dealList.iterator();
-//        Operation operation; 
-//        
-//        if(date.after(new Date()))
-//        {
-//            while(it.hasNext())
-//            {
-//                operation = (Operation) it.next();
-//
-//                solde += operation.getValue()*(operation.isInOrOut() == true ? 1 : -1);
-//            }
-//
-//            return solde; 
-//        }
+        
+        Calendar firstDayOfTheMonthDate = (Calendar) date.clone(); 
+        firstDayOfTheMonthDate.set(Calendar.DAY_OF_MONTH, date.getActualMinimum(Calendar.DAY_OF_MONTH));
+        firstDayOfTheMonthDate.set(Calendar.HOUR_OF_DAY, 0);
+        firstDayOfTheMonthDate.set(Calendar.MINUTE, 0);
+        firstDayOfTheMonthDate.set(Calendar.SECOND, 0);
+        firstDayOfTheMonthDate.set(Calendar.MILLISECOND, 0);
+        
+        Calendar lastDayOfTheMonthDate = (Calendar) date.clone(); 
+        lastDayOfTheMonthDate.set(Calendar.DAY_OF_MONTH, date.getActualMaximum(Calendar.DAY_OF_MONTH));
+        lastDayOfTheMonthDate.set(Calendar.HOUR_OF_DAY, 0);
+        lastDayOfTheMonthDate.set(Calendar.MINUTE, 0);
+        lastDayOfTheMonthDate.set(Calendar.SECOND, 0);
+        lastDayOfTheMonthDate.set(Calendar.MILLISECOND, 0);
+        
+        Iterator it = dealList.iterator();
+        Deal deal;
+        
+        while(it.hasNext())
+        {
+            deal = (Deal) it.next();
+            
+            System.out.println(deal);
+            
+            if(     (deal.getDate().equals(firstDayOfTheMonthDate)
+                ||   deal.getDate().equals(lastDayOfTheMonthDate))
+                ||  (deal.getDate().after(firstDayOfTheMonthDate)  
+                &&   deal.getDate().before(lastDayOfTheMonthDate)))
+            {
+                solde += deal.getValue(); 
+            }
+        }
+        
         return solde; 
     }
 }
