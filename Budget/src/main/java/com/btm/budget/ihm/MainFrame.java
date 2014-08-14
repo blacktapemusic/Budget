@@ -15,8 +15,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 /**
  *
@@ -53,7 +55,7 @@ public class MainFrame extends JFrame implements MouseListener{
         panel.setPreferredSize(new Dimension(1000, 1000));
         //On définit le layout manager
         panel.setLayout(new GridBagLayout());
-//        panel.setLayout(new GridBagLayout());
+//        panel.setLayout(new GridBagLayout());      
         
         GridBagConstraints gbc = new GridBagConstraints();
         
@@ -67,10 +69,15 @@ public class MainFrame extends JFrame implements MouseListener{
         
         panel.add(accountTablePanel, gbc); 
         
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.1; 
+        panel.add(new JSeparator(JSeparator.VERTICAL), gbc);
         
         operationTable = new OperationTablePanel();
         
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.weightx = 0.8;
 //        gbc.weighty = 0.7;
