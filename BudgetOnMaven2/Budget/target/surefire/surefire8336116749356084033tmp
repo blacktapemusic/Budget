@@ -1,0 +1,7 @@
+#surefire
+#Mon Jul 07 17:26:55 CEST 2014
+maven.ext.class.path=C\:\\Program Files\\NetBeans 8.0\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=D\:\\Users\\sdalens\\Documents\\NetBeansProjects\\BudgetOnMaven2\\Budget
+file.encoding=UTF-8
+localRepository=C\:\\Users\\sdalens\\.m2\\repository
+basedir=D\:\\Users\\sdalens\\Documents\\NetBeansProjects\\BudgetOnMaven2\\Budget
