@@ -6,6 +6,7 @@
 
 package com.btm.budget.ihm;
 
+import com.btm.budget.Constants;
 import com.btm.budget.Core;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -15,7 +16,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Calendar;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -26,8 +29,9 @@ import javax.swing.JSeparator;
  */
 public class MainFrame extends JFrame implements MouseListener{
     Core core; 
-    OperationTablePanel operationTable; 
+    OperationTablePanel operationTablePanel; 
     AccountTablePanel accountTablePanel; 
+    TimelinePanel timelinePanel; 
     JPanel panel;
     
     public MainFrame()
@@ -46,6 +50,7 @@ public class MainFrame extends JFrame implements MouseListener{
         setResizable(false); //On interdit la redimensionnement de la fenêtre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On dit à l'application de se fermer lors du clic sur la croix
         setContentPane(buildContentPane());
+        setIconImage(Constants.appIcon.getImage()); // On donne a la fenetre l'icone de l'appli
     }
 
     private Container buildContentPane() {
@@ -54,8 +59,7 @@ public class MainFrame extends JFrame implements MouseListener{
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(1000, 1000));
         //On définit le layout manager
-        panel.setLayout(new GridBagLayout());
-//        panel.setLayout(new GridBagLayout());      
+        panel.setLayout(new GridBagLayout());   
         
         GridBagConstraints gbc = new GridBagConstraints();
         
@@ -75,17 +79,29 @@ public class MainFrame extends JFrame implements MouseListener{
         gbc.weighty = 0.1; 
         panel.add(new JSeparator(JSeparator.VERTICAL), gbc);
         
-        operationTable = new OperationTablePanel();
+        accountTablePanel.tab.addMouseListener(this);
+        
+        
+        timelinePanel = new TimelinePanel(Calendar.getInstance()); // TODO mettre une date qui s'addapte  
         
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.weightx = 0.8;
-//        gbc.weighty = 0.7;
+        gbc.weighty = 0.1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        panel.add(operationTable, gbc); 
+        panel.add(timelinePanel, gbc); 
         
-        accountTablePanel.tab.addMouseListener(this);
+        
+        operationTablePanel = new OperationTablePanel();
+        
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.weightx = 0.8;
+        gbc.weighty = 0.9;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        
+        panel.add(operationTablePanel, gbc); 
         
 //        //L'objet servant à positionner les composants
 //        BorderLayout layout = new BorderLayout(); 
@@ -97,6 +113,8 @@ public class MainFrame extends JFrame implements MouseListener{
 //        panel.add(accountTablePanel, BorderLayout.WEST); 
 //        core.loadAllAccount();
         
+        timelinePanel.test();
+        
         return panel;
     }    
 
@@ -105,7 +123,7 @@ public class MainFrame extends JFrame implements MouseListener{
         // change acount table print in panel
         if(accountTablePanel.tab == e.getComponent())
         {
-            operationTable.changeAccount(accountTablePanel.tab.getSelectedRow());
+            operationTablePanel.changeAccount(accountTablePanel.tab.getSelectedRow());
         }
     }
 

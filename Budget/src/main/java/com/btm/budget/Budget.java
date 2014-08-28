@@ -23,6 +23,9 @@ public class Budget {
         core = Core.getInstance();
         core.loadAllAccount();
         
+        Constants constants = new Constants(); 
+        constants.init();
+        
         MainFrame frame = new MainFrame(); 
         frame.setVisible(true);
     }
